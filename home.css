@@ -305,39 +305,141 @@ body {
   }
 }
 
-/* Floating Elements - More Subtle */
+/* Enhanced Interactive Floating Elements */
 .floating-circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(229, 9, 20, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(229, 9, 20, 0.2);
-  pointer-events: none;
-  animation: modernFloat 12s ease-in-out infinite;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.4), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(229, 9, 20, 0.6);
+  cursor: grab;
+  user-select: none;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 2;
+  box-shadow: 
+    0 8px 32px rgba(229, 9, 20, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.floating-circle.dragging {
+  cursor: grabbing;
+  transform: scale(1.2) rotate(15deg);
+  box-shadow: 
+    0 20px 60px rgba(229, 9, 20, 0.6),
+    0 0 40px rgba(229, 9, 20, 0.8),
+    inset 0 0 30px rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(229, 9, 20, 0.9);
 }
 
 .floating-circle:hover {
-  background: rgba(229, 9, 20, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(-5deg);
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.6), rgba(255, 255, 255, 0.2));
+  box-shadow: 
+    0 15px 45px rgba(229, 9, 20, 0.5),
+    0 0 25px rgba(229, 9, 20, 0.4),
+    inset 0 0 25px rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(229, 9, 20, 0.8);
 }
 
-@keyframes modernFloat {
-  0%, 100% { 
-    transform: translateY(0px) translateX(0px);
-    opacity: 0.6;
+/* Magnetic cursor effect */
+.floating-circle::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.1), transparent);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.floating-circle:hover::before {
+  opacity: 1;
+  inset: -20px;
+}
+
+/* Enhanced magnetic floating animation */
+@keyframes magneticFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    box-shadow: 0 8px 32px rgba(229, 9, 20, 0.3);
   }
-  50% { 
-    transform: translateY(-30px) translateX(10px);
-    opacity: 0.8;
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(5deg);
+    box-shadow: 0 15px 40px rgba(229, 9, 20, 0.4);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) rotate(-3deg);
+    box-shadow: 0 12px 35px rgba(229, 9, 20, 0.35);
+  }
+  75% {
+    transform: translateY(-25px) translateX(5px) rotate(8deg);
+    box-shadow: 0 18px 45px rgba(229, 9, 20, 0.45);
   }
 }
 
-.circle-1 { width: 80px; height: 80px; top: 15%; left: 10%; animation-delay: 0s; }
-.circle-2 { width: 60px; height: 60px; top: 25%; right: 15%; animation-delay: 2s; }
-.circle-3 { width: 100px; height: 100px; bottom: 30%; left: 20%; animation-delay: 4s; }
-.circle-4 { width: 70px; height: 70px; bottom: 20%; right: 25%; animation-delay: 6s; }
-.circle-5 { width: 90px; height: 90px; top: 50%; left: 5%; animation-delay: 8s; }
+.circle-1 {
+  width: 80px;
+  height: 80px;
+  top: 15%;
+  left: 8%;
+  animation: magneticFloat 8s ease-in-out infinite;
+}
+
+.circle-2 {
+  width: 120px;
+  height: 120px;
+  top: 55%;
+  right: 12%;
+  animation: magneticFloat 6s ease-in-out infinite reverse;
+}
+
+.circle-3 {
+  width: 60px;
+  height: 60px;
+  top: 25%;
+  right: 20%;
+  animation: magneticFloat 7s ease-in-out infinite;
+}
+
+.circle-4 {
+  width: 100px;
+  height: 100px;
+  bottom: 15%;
+  left: 15%;
+  animation: magneticFloat 9s ease-in-out infinite reverse;
+}
+
+.circle-5 {
+  width: 70px;
+  height: 70px;
+  bottom: 35%;
+  right: 25%;
+  animation: magneticFloat 5s ease-in-out infinite;
+}
+
+/* Enhanced section animations */
+section {
+  opacity: 0;
+  animation: sectionFadeIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+section:nth-child(1) { animation-delay: 0.1s; }
+section:nth-child(2) { animation-delay: 0.2s; }
+section:nth-child(3) { animation-delay: 0.3s; }
+section:nth-child(4) { animation-delay: 0.4s; }
+section:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes sectionFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Hero Content */
 .hero-content {
