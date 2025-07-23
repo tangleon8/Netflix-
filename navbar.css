@@ -1,0 +1,163 @@
+/* ============================= */
+/*      Netflix Navbar            */
+/* ============================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #e50914;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ============================= */
+/*        Netflix Logo           */
+/* ============================= */
+.navbar-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #e50914;
+  letter-spacing: 3px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.navbar-logo:hover {
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(229, 9, 20, 0.8);
+  transform: scale(1.05);
+}
+
+/* ============================= */
+/*      Netflix Toggler          */
+/* ============================= */
+.navbar-toggler {
+  display: none;
+  background: none;
+  border: 2px solid #e50914;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  color: #e50914;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+.navbar-toggler:hover {
+  background: #e50914;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+/* ============================= */
+/*           Links               */
+/* ============================= */
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  /* No positioning here; only on mobile do we reposition */
+}
+
+.navbar-link {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.navbar-link:hover {
+  color: #e50914;
+  background: rgba(229, 9, 20, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Netflix underline effect */
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #e50914;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+.navbar-link:hover::after {
+  width: 80%;
+}
+
+/* ============================= */
+/*        Responsive Rules       */
+/* ============================= */
+@media (max-width: 768px) {
+  /* Show toggler on mobile */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* Netflix mobile menu */
+  .navbar-links {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(10px);
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 800;
+    border-radius: 0 0 8px 8px;
+    border: 1px solid #e50914;
+    border-top: none;
+    overflow: hidden;
+  }
+
+  /* When active, “unfold” the menu */
+  .navbar-links.active {
+    transform: scaleY(1);
+  }
+
+  /* Netflix mobile link styling */
+  .navbar-link {
+    padding: 1.2rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid rgba(229, 9, 20, 0.2);
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .navbar-link::after {
+    display: none;
+  }
+
+  .navbar-link:hover {
+    background: rgba(229, 9, 20, 0.2);
+    color: #ffffff;
+    transform: none;
+  }
+}
