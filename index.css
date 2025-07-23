@@ -1,0 +1,211 @@
+/* Import Netflix fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue:wght@400&display=swap');
+
+/* Netflix Theme Variables */
+:root {
+  /* Core Netflix Colors */
+  --netflix-red: #e50914;
+  --netflix-black: #000000;
+  --netflix-dark-gray: #141414;
+  --netflix-gray: #2f2f2f;
+  --netflix-light-gray: #808080;
+  --netflix-white: #ffffff;
+  
+  /* Primary Theme */
+  --primary-bg: var(--netflix-black);
+  --secondary-bg: var(--netflix-dark-gray);
+  --card-bg: var(--netflix-gray);
+  --glass-bg: rgba(47, 47, 47, 0.9);
+  
+  /* Accent Colors */
+  --accent-primary: var(--netflix-red);
+  --accent-secondary: #ffffff;
+  --accent-tertiary: var(--netflix-light-gray);
+  
+  /* Text Colors */
+  --text-primary: var(--netflix-white);
+  --text-secondary: #e5e5e5;
+  --text-muted: var(--netflix-light-gray);
+  --text-accent: var(--netflix-red);
+  
+  /* Effects */
+  --glow-red: rgba(229, 9, 20, 0.6);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 25px rgba(229, 9, 20, 0.3);
+  
+  /* Gradients */
+  --gradient-netflix: linear-gradient(135deg, var(--netflix-red), #b81420);
+  --gradient-card: linear-gradient(145deg, rgba(47, 47, 47, 0.95), rgba(20, 20, 20, 0.95));
+}
+
+/* Global Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Netflix Body Styling */
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--primary-bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Global Link Styling */
+a {
+  color: var(--netflix-red);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 8px var(--glow-red);
+}
+
+/* Global Button Styling */
+button {
+  padding: 0.8rem 1.5rem;
+  background: var(--gradient-netflix);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(135deg, #ff1f30, #e50914);
+}
+
+/* Layout Utilities */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section Styling */
+section {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--netflix-red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+section p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Navbar */
+nav {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+nav a {
+  margin: 0 1rem;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--netflix-red);
+}
+
+/* Footer */
+footer {
+  background: var(--netflix-dark-gray);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 2px solid var(--netflix-red);
+}
+
+footer a {
+  color: var(--netflix-red);
+}
+
+footer a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--netflix-black), var(--netflix-dark-gray));
+  color: var(--text-primary);
+  text-align: center;
+  position: relative;
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: var(--netflix-red);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+/* Cards */
+.card {
+  background: var(--gradient-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(229, 9, 20, 0.2);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card h3 {
+  color: var(--netflix-red);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
