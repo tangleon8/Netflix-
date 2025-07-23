@@ -269,71 +269,105 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    // Create custom cursor
+    // Create enhanced Netflix cursor
     const cursor = document.createElement('div');
-    cursor.className = 'cyber-cursor';
+    cursor.className = 'netflix-cursor';
     cursor.innerHTML = `
       <div class="cursor-core"></div>
       <div class="cursor-ring"></div>
-      <div class="cursor-trail"></div>
+      <div class="cursor-glow"></div>
     `;
     document.body.appendChild(cursor);
 
     const moveCursor = (e) => {
       cursor.style.left = `${e.clientX}px`;
       cursor.style.top = `${e.clientY}px`;
+      
+      // Magnetic effect for floating circles
+      const circles = document.querySelectorAll('.floating-circle');
+      circles.forEach(circle => {
+        const rect = circle.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = Math.sqrt(
+          Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+        );
+        
+        if (distance < 150) {
+          const force = (150 - distance) / 150;
+          const deltaX = (e.clientX - centerX) * force * 0.3;
+          const deltaY = (e.clientY - centerY) * force * 0.3;
+          
+          circle.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${1 + force * 0.2})`;
+          circle.style.boxShadow = `0 0 ${30 + force * 20}px rgba(229, 9, 20, ${0.3 + force * 0.4})`;
+        } else {
+          circle.style.transform = '';
+          circle.style.boxShadow = '';
+        }
+      });
     };
 
     const cursorStyle = document.createElement('style');
     cursorStyle.textContent = `
-      .cyber-cursor {
+      .netflix-cursor {
         position: fixed;
         pointer-events: none;
         z-index: 10000;
         transform: translate(-50%, -50%);
-        mix-blend-mode: difference;
+        transition: all 0.1s ease-out;
       }
       .cursor-core {
-        width: 8px;
-        height: 8px;
-        background: var(--accent-primary);
+        width: 6px;
+        height: 6px;
+        background: #e50914;
         border-radius: 50%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 20px var(--glow-cyan);
+        box-shadow: 0 0 15px rgba(229, 9, 20, 0.8);
       }
       .cursor-ring {
-        width: 30px;
-        height: 30px;
-        border: 2px solid var(--accent-secondary);
+        width: 25px;
+        height: 25px;
+        border: 2px solid rgba(229, 9, 20, 0.6);
         border-radius: 50%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation: cursorPulse 2s ease-in-out infinite;
+        animation: netflixPulse 2s ease-in-out infinite;
       }
-      .cursor-trail {
-        width: 50px;
-        height: 50px;
-        border: 1px solid var(--accent-tertiary);
+      .cursor-glow {
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle, rgba(229, 9, 20, 0.2), transparent);
         border-radius: 50%;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation: cursorRotate 4s linear infinite;
-        opacity: 0.3;
+        animation: netflixGlow 3s ease-in-out infinite reverse;
       }
-      @keyframes cursorPulse {
-        0%, 100% { transform: translate(-50%, -50%) scale(1); }
-        50% { transform: translate(-50%, -50%) scale(1.5); }
+      @keyframes netflixPulse {
+        0%, 100% { 
+          transform: translate(-50%, -50%) scale(1); 
+          opacity: 0.6;
+        }
+        50% { 
+          transform: translate(-50%, -50%) scale(1.3); 
+          opacity: 1;
+        }
       }
-      @keyframes cursorRotate {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
+      @keyframes netflixGlow {
+        0%, 100% { 
+          transform: translate(-50%, -50%) scale(1); 
+          opacity: 0.3;
+        }
+        50% { 
+          transform: translate(-50%, -50%) scale(1.5); 
+          opacity: 0.1;
+        }
       }
     `;
     document.head.appendChild(cursorStyle);
@@ -421,11 +455,16 @@ const Home = () => {
 
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out-back',
-      offset: 0,
-      once: false,      // re‑animate on each scroll down
-      mirror: true,     // animate on scroll‑up as well
+      duration: 1200,
+      easing: 'ease-out-cubic',
+      offset: 100,
+      once: false,
+      mirror: true,
+      anchorPlacement: 'top-bottom',
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      animatedClassName: 'aos-animate',
+      initClassName: 'aos-init',
     });
 
     let typingSpeed = isDeleting ? 50 : 150;
@@ -476,7 +515,7 @@ const Home = () => {
                   
                   {showHint && (
                     <div className="hint-container">
-                      <p className="hint">💡 Hint: It's the owner's name (firstname + lastname)</p>
+                      <p className="hint">💡 Hint: The password is "leontang"</p>
                     </div>
                   )}
                   
